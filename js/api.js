@@ -23,36 +23,66 @@ const handleLoadData = async (id) =>{
     const data = await res.json();
     console.log(data.data);
 
-
     const dataContainer = document.getElementById('data-container');
     dataContainer.innerHTML = '';
 
-    data.data?.forEach(video => {
-        // console.log(video);
-        const div = document.createElement('div');
-        div.classList = 'card';
-        div.innerHTML = `
-        <figure><img class='h-[200px]' src="${video?.thumbnail}" /></figure>
-            <div class='flex items-center'>
-                <div >
-                    <img class="w-16 h-16 px-2 rounded-full" src="${video?.authors[0]?.profile_picture}"/>
+    if(data.data && data.data.length > 0){
+       
+        data.data?.forEach(video => {
+            // console.log(video);
+            const div = document.createElement('div');
+            div.classList = '';
+            div.innerHTML = `
+            <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
+                <p class='text-end bg-slate-700 text-white pr-2'>${video?.others?.posted_date} hour 0 min</p>
+                <div class='flex items-center'>
+                    <div >
+                        <img class="w-16 h-16 px-2 rounded-full" src="${video?.authors[0]?.profile_picture}"/>
+                        
+                    </div>
+                    
+                
+                    <div class="card-body">
+                        <h2 class="card-title">${video?.title}</h2>
+                        <div class=''>
+                            <p class='inline-block'>${video?.authors[0]?.profile_name}</p>
+                            <img class='inline-block' src='${video.authors[0].verified? `./images/fi_10629607.svg` : '' }' />   
+                        </div> 
+                        <small>${video.others?.views}</small>
+                    </div>
                 </div>
+                
             
-                <div class="card-body">
-                    <h2 class="card-title">${video?.title}</h2>
-                    <div class=''>
-                        <p class='inline-block'>${video?.authors[0]?.profile_name}</p>
-                        <img class='inline-block' src='${video.authors[0].verified? `./images/fi_10629607.svg` : '' }' />   
-                    </div> 
-                    <small>${video.others?.views}</small>
-                </div>
-            </div>
-            
+            `
+            dataContainer.appendChild(div);
+
+        });
+    }
+    else{
+        const noFoundData = document.createElement('div');
+        noFoundData.innerHTML = `
+        <div class='flex items-center gap-5'> 
+            <img src="./images/Icon.png"  />
+            <h2 class='text-xl font-semibold'>Oops!! Sorry, There is no content here</h2>
+        </div>
         
-        `
-        dataContainer.appendChild(div);
-    });
+        `;
+        dataContainer.appendChild(noFoundData);
+    }
 };
+
+// const convertSecondsToHoursAndMinutes = (seconds) => {
+//     // const hours = Math.floor(seconds / 3600);
+//     // const remainingSeconds = seconds % 3600;
+//     // const minutes = Math.floor(remainingSeconds / 60);
+  
+//     return {
+//       hours: hours,
+//       minutes: minutes
+//     };
+// };
+
+console.log()
 
 loadData();
 handleLoadData('1000');
