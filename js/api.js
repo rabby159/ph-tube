@@ -1,3 +1,5 @@
+// category data load from API 
+
 const loadData = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/videos/categories');
     const data = await res.json();
@@ -19,14 +21,15 @@ const loadData = async () => {
     handleLoadData('1000');
 };
 
-
+// blog page handle 
 const clickBlogBtn = () => {
     window.location.href = 'blog.html';
 }
 
-let contentData = [];
+let contentData = []; //global variable 
 
 
+// content load and set from API 
 const handleLoadData = async (id) =>{
     // console.log(id);
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`)
@@ -44,8 +47,10 @@ const handleLoadData = async (id) =>{
             // console.log(video.others.views)
             
             const seconds = `${video.others?.posted_date}`;
-            // console.log(seconds);
+            // console.log(typeof seconds);
 
+
+                // seconds converting hour and minutes
                 const timeConverting = (seconds) => {
                     const hours = Math.floor(seconds / 3600);
                     const remainingSeconds = seconds % 3600;
@@ -59,13 +64,14 @@ const handleLoadData = async (id) =>{
     
                 const result = timeConverting(seconds);
 
-
+            
+            // dynamic content create 
             const div = document.createElement('div');
             div.classList = '';
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
                 <div class='flex justify-end -mt-10'>
-                <button class=' bg-stone-700 text-white p-1 rounded'>${result.hours} hrs ${result.minutes} min ago</button>
+                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${result.hours} hrs ${result.minutes} min ago</button>
                 </div>
                 <div class='flex items-center'>
                     <div >
@@ -83,12 +89,9 @@ const handleLoadData = async (id) =>{
                         <small>${video.others?.views}</small>
                     </div>
                 </div>
-                
-            
+
             `
-            dataContainer.appendChild(div);
-            
-           
+            dataContainer.appendChild(div); 
 
         });
     }
@@ -106,6 +109,7 @@ const handleLoadData = async (id) =>{
     
 };
 
+// sort by most views 
 document.getElementById('btn-sort-by-view').addEventListener('click', () =>{
     
     contentData.sort((a, b) => parseFloat(b.others.views) - parseFloat(a.others.views));
