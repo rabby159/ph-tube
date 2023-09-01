@@ -46,8 +46,8 @@ const handleLoadData = async (id) =>{
             // console.log(video);
             // console.log(video.others.views)
             
-            const seconds = `${video.others?.posted_date}`;
-            // console.log(typeof seconds);
+            const seconds = `${video?.others?.posted_date}`;
+            console.log(seconds);
 
 
                 // seconds converting hour and minutes
@@ -63,7 +63,8 @@ const handleLoadData = async (id) =>{
                 }
     
                 const result = timeConverting(seconds);
-
+                // console.log(result);
+                const timeBtn = document.getElementById(`time-btn`);
             
             // dynamic content create 
             const div = document.createElement('div');
@@ -71,7 +72,7 @@ const handleLoadData = async (id) =>{
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
                 <div class='flex justify-end -mt-10'>
-                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${result.hours} hrs ${result.minutes} min ago</button>
+                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${result?.hours} hrs ${result?.minutes} min ago</button>
                 </div>
                 <div class='flex items-center'>
                     <div >
@@ -86,7 +87,7 @@ const handleLoadData = async (id) =>{
                             <p class='inline-block'>${video?.authors[0]?.profile_name}</p>
                             <img class='inline-block' src='${video.authors[0].verified? `./images/fi_10629607.svg` : '' }' />   
                         </div> 
-                        <small>${video.others?.views}</small>
+                        <small>${video.others?.views} views</small>
                     </div>
                 </div>
 
@@ -160,7 +161,7 @@ document.getElementById('btn-sort-by-view').addEventListener('click', () =>{
                             <p class='inline-block'>${video?.authors[0]?.profile_name}</p>
                             <img class='inline-block' src='${video.authors[0].verified? `./images/fi_10629607.svg` : '' }' />   
                         </div> 
-                        <small>${video.others?.views}</small>
+                        <small>${video.others?.views} views</small>
                     </div>
                 </div>
                 
