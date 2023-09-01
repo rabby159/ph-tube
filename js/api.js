@@ -46,25 +46,26 @@ const handleLoadData = async (id) =>{
             // console.log(video);
             // console.log(video.others.views)
             
-            const seconds = `${video?.others?.posted_date}`;
-            console.log(seconds);
+            // const seconds = `${video?.others?.posted_date}`;
+            // console.log(seconds);
 
 
                 // seconds converting hour and minutes
+                const seconds = `${(video?.others?.posted_date) ? (video?.others?.posted_date) : ''}`;
+                // console.log(seconds)
                 const timeConverting = (seconds) => {
+                    
                     const hours = Math.floor(seconds / 3600);
                     const remainingSeconds = seconds % 3600;
                     const minutes = Math.floor(remainingSeconds / 60);
     
-                return {
-                    hours: hours,
-                    minutes: minutes
+                return { 
+                    transfer:  `${hours}hrs ${minutes}min ago`
                   };
                 }
     
                 const result = timeConverting(seconds);
                 // console.log(result);
-                const timeBtn = document.getElementById(`time-btn`);
             
             // dynamic content create 
             const div = document.createElement('div');
@@ -72,7 +73,7 @@ const handleLoadData = async (id) =>{
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
                 <div class='flex justify-end -mt-10'>
-                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${result?.hours} hrs ${result?.minutes} min ago</button>
+                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${(result?.transfer) ? (result?.transfer) : ''}</button>
                 </div>
                 <div class='flex items-center'>
                     <div >
@@ -124,21 +125,20 @@ document.getElementById('btn-sort-by-view').addEventListener('click', () =>{
             // console.log(video);
             // console.log(video.others.views)
             
-            const seconds = `${video.others?.posted_date}`;
-            // console.log(seconds);
+            const seconds = `${(video?.others?.posted_date) ? (video?.others?.posted_date) : ''}`;
+            // console.log(seconds)
+            const timeConverting = (seconds) => {
+                
+                const hours = Math.floor(seconds / 3600);
+                const remainingSeconds = seconds % 3600;
+                const minutes = Math.floor(remainingSeconds / 60);
 
-                const timeConverting = (seconds) => {
-                    const hours = Math.floor(seconds / 3600);
-                    const remainingSeconds = seconds % 3600;
-                    const minutes = Math.floor(remainingSeconds / 60);
-    
-                return {
-                    hours: hours,
-                    minutes: minutes
-                  };
-                }
-    
-                const result = timeConverting(seconds);
+            return { 
+                transfer:  `${hours}hrs ${minutes}min ago`
+              };
+            }
+
+            const result = timeConverting(seconds);
 
 
             const div = document.createElement('div');
@@ -146,7 +146,7 @@ document.getElementById('btn-sort-by-view').addEventListener('click', () =>{
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
                 <div class='flex justify-end -mt-10'>
-                <button class=' bg-stone-700 text-white p-1 rounded'>${result.hours} hrs ${result.minutes} min ago</button>
+                <button class=' bg-stone-700 text-white p-1 rounded'>${(result?.transfer) ? (result?.transfer) : ''}</button>
                 </div>
                 <div class='flex items-center'>
                     <div >
