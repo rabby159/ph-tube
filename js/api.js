@@ -16,15 +16,21 @@ const loadData = async () => {
         categoryDiv.appendChild(div);
 
     });
+    handleLoadData('1000');
 };
 
+
+const clickBlogBtn = () => {
+    window.location.href = 'blog.html';
+}
 
 
 const handleLoadData = async (id) =>{
     // console.log(id);
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`)
     const data = await res.json();
-    console.log(data.data);
+    console.log(data.data)
+
 
     const dataContainer = document.getElementById('data-container');
     dataContainer.innerHTML = '';
@@ -33,6 +39,8 @@ const handleLoadData = async (id) =>{
        
         data.data?.forEach(video => {
             // console.log(video);
+            // console.log(video.others.views)
+            
             const seconds = `${video.others?.posted_date}`;
             // console.log(seconds);
 
@@ -54,7 +62,9 @@ const handleLoadData = async (id) =>{
             div.classList = '';
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
-                <p class='text-end bg-slate-700 text-white pr-2'>${result.hours} hrs ${result.minutes} min ago</p>
+                <div class='flex justify-end -mt-10'>
+                <button class=' bg-stone-700 text-white p-1 rounded'>${result.hours} hrs ${result.minutes} min ago</button>
+                </div>
                 <div class='flex items-center'>
                     <div >
                         <img class="w-16 h-16 px-2 rounded-full" src="${video?.authors[0]?.profile_picture}"/>
@@ -95,18 +105,4 @@ const handleLoadData = async (id) =>{
 };
 
 
-
-// const hours = Math.floor(seconds / 3600);
-// const remainingSeconds = seconds % 3600;
-// const minutes = Math.floor(remainingSeconds / 60);
-
-// return {
-//     hours: hours,
-//     minutes: minutes
-//   };
-// const totalSecond = `${video.others?.posted_date}`;
-// console.log(totalSecond)
-
-
 loadData();
-handleLoadData('1000');
