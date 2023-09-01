@@ -14,8 +14,11 @@ const loadData = async () => {
         
         `
         categoryDiv.appendChild(div);
+
     });
 };
+
+
 
 const handleLoadData = async (id) =>{
     // console.log(id);
@@ -30,11 +33,28 @@ const handleLoadData = async (id) =>{
        
         data.data?.forEach(video => {
             // console.log(video);
+            const seconds = `${video.others?.posted_date}`;
+            // console.log(seconds);
+
+                const timeConverting = (seconds) => {
+                    const hours = Math.floor(seconds / 3600);
+                    const remainingSeconds = seconds % 3600;
+                    const minutes = Math.floor(remainingSeconds / 60);
+    
+                return {
+                    hours: hours,
+                    minutes: minutes
+                  };
+                }
+    
+                const result = timeConverting(seconds);
+
+
             const div = document.createElement('div');
             div.classList = '';
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
-                <p class='text-end bg-slate-700 text-white pr-2'>${video?.others?.posted_date} hour 0 min</p>
+                <p class='text-end bg-slate-700 text-white pr-2'>${result.hours} hrs ${result.minutes} min ago</p>
                 <div class='flex items-center'>
                     <div >
                         <img class="w-16 h-16 px-2 rounded-full" src="${video?.authors[0]?.profile_picture}"/>
@@ -55,6 +75,8 @@ const handleLoadData = async (id) =>{
             
             `
             dataContainer.appendChild(div);
+            
+           
 
         });
     }
@@ -69,20 +91,22 @@ const handleLoadData = async (id) =>{
         `;
         dataContainer.appendChild(noFoundData);
     }
+    
 };
 
-// const convertSecondsToHoursAndMinutes = (seconds) => {
-//     // const hours = Math.floor(seconds / 3600);
-//     // const remainingSeconds = seconds % 3600;
-//     // const minutes = Math.floor(remainingSeconds / 60);
-  
-//     return {
-//       hours: hours,
-//       minutes: minutes
-//     };
-// };
 
-console.log()
+
+// const hours = Math.floor(seconds / 3600);
+// const remainingSeconds = seconds % 3600;
+// const minutes = Math.floor(remainingSeconds / 60);
+
+// return {
+//     hours: hours,
+//     minutes: minutes
+//   };
+// const totalSecond = `${video.others?.posted_date}`;
+// console.log(totalSecond)
+
 
 loadData();
 handleLoadData('1000');
