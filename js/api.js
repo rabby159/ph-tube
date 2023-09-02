@@ -45,9 +45,6 @@ const handleLoadData = async (id) =>{
         contentData?.forEach(video => {
             // console.log(video);
             // console.log(video.others.views)
-            
-            // const seconds = `${video?.others?.posted_date}`;
-            // console.log(seconds);
 
 
                 // seconds converting hour and minutes
