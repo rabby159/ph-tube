@@ -59,9 +59,9 @@ const handleLoadData = async (id) =>{
                     const remainingSeconds = seconds % 3600;
                     const minutes = Math.floor(remainingSeconds / 60);
     
-                return { 
-                    transfer:  `${hours}hrs ${minutes}min ago`
-                  };
+                    return { 
+                        transfer:  `${hours}hrs ${minutes}min ago`
+                      };
                 }
     
                 const result = timeConverting(seconds);
@@ -73,7 +73,7 @@ const handleLoadData = async (id) =>{
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
                 <div class='flex justify-end -mt-10'>
-                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${(result?.transfer) ? (result?.transfer) : ''}</button>
+                <button id='time-btn' class=' bg-stone-700 text-white p-1 rounded'>${video?.others?.posted_date > 0 ? (result?.transfer) : ''}</button>
                 </div>
                 <div class='flex items-center'>
                     <div >
@@ -146,7 +146,7 @@ document.getElementById('btn-sort-by-view').addEventListener('click', () =>{
             div.innerHTML = `
             <figure><img class='h-[200px] w-[500px]' src="${video?.thumbnail}" /></figure>
                 <div class='flex justify-end -mt-10'>
-                <button class=' bg-stone-700 text-white p-1 rounded'>${(result?.transfer) ? (result?.transfer) : ''}</button>
+                <button class=' bg-stone-700 text-white p-1 rounded'>${video?.others?.posted_date > 0 ? (result?.transfer) : ''}</button>
                 </div>
                 <div class='flex items-center'>
                     <div >
